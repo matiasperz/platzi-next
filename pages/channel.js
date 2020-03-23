@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Link from 'next/link';
-import Error from 'next/error';
+import Error from './_error';
 import 'isomorphic-fetch';
 
 import Layout from '../components/Layout';
