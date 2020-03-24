@@ -5,6 +5,7 @@ import 'isomorphic-fetch';
 import Layout from '../components/Layout';
 import ChannelGrid from '../components/ChannelGrid';
 import PodcastList from '../components/PodcastList';
+import PodcastPlayer from '../components/PodcastPlayer';
 
 const BASE_API = 'https://api.audioboom.com';
 
@@ -36,8 +37,30 @@ export default class extends Component{
     }
   }
 
+  constructor(props){
+    super(props);
+    this.state = {
+      openPodcast: null
+    }
+  }
+
+  openPodcast = (event, podcast) => {
+    event.preventDefault();
+    this.setState({
+      openPodcast: podcast
+    });
+  }
+
+  onCloseModal = (event) => {
+    event.preventDefault();
+    this.setState({
+      openPodcast: null
+    });
+  }
+
   render(){
     const { channel, audioClips, series, statusCode } = this.props;
+    const { openPodcast } = this.state;
 
     if(statusCode !== 200){
       return <Error statusCode={statusCode} />
@@ -48,13 +71,19 @@ export default class extends Component{
         <div className="banner" style={{backgroundImage: `url(${channel.urls.banner_image.original})`}}>
         </div>
 
+        { openPodcast && 
+          <div className="modal">
+            <PodcastPlayer clip={openPodcast} onClose={this.onCloseModal} />
+          </div>
+        }
+        
         <h1>{ channel.title }</h1>
         
         <h2>Series</h2>
         <ChannelGrid channels={series}/>
 
         <h2>Ultimos Podcasts</h2>
-        <PodcastList clips={audioClips} />
+        <PodcastList openPodcast={this.openPodcast} clips={audioClips} />
 
         <style jsx>{`
           header {
@@ -70,13 +99,23 @@ export default class extends Component{
             background-size: cover;
             background-color: #aaa;
           }
-        `}</style>
-
-        <style jsx global>{`
-          body {
+          h1 {
+            font-weight: 600;
+            padding: 15px;
+          }
+          h2 {
+            padding: 15px;
+            font-size: 1.2em;
+            font-weight: 600;
             margin: 0;
-            font-family: system-ui;
-            background: white;
+          }
+          .modal{
+            position: fixed;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 999999;
           }
         `}</style>
       </Layout>

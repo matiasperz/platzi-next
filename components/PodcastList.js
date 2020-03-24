@@ -1,13 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
 
-const PodcastList = ({clips}) => {
+const PodcastList = ({clips, openPodcast}) => {
   return (
     <div>
       { 
         clips.map((clip)=>(
           <Link href={`/podcast?id=${clip.id}`} prefetch key={clip.id}>
-            <a className="podcast">
+            <a onClick={(event)=>{ openPodcast(event, clip) }} className="podcast">
               <h3>{ clip.title }</h3>
               <div className="meta">
                 { Math.ceil(clip.duration / 60) } minutes
