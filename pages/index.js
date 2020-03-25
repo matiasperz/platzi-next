@@ -5,6 +5,8 @@ import 'isomorphic-fetch'
 import Layout from '../components/Layout';
 import ChannelGrid from '../components/ChannelGrid'
 
+import styles from '../styles/global.scss';
+
 const BASE_URL = 'https://api.audioboom.com';
 
 export default class extends Component {
@@ -28,7 +30,9 @@ export default class extends Component {
 
     return (
       <Layout title="Podcasts" >
-        <ChannelGrid channels={ channels } />
+        <div className={styles.content}>
+          <ChannelGrid channels={ channels } />
+        </div>
       </Layout>
     );
   }

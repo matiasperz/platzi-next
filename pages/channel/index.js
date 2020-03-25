@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import Error from './_error';
 import 'isomorphic-fetch';
 
-import Layout from '../components/Layout';
-import ChannelGrid from '../components/ChannelGrid';
-import PodcastList from '../components/PodcastList';
-import PodcastPlayer from '../components/PodcastPlayer';
+import Error from '../_error';
+import Layout from '../../components/Layout';
+import ChannelGrid from '../../components/ChannelGrid';
+import PodcastList from '../../components/PodcastList';
+import PodcastPlayer from '../../components/PodcastPlayer';
+
+import globalStyles from '../../styles/global.scss';
+import styles from './styles.scss';
 
 const BASE_API = 'https://api.audioboom.com';
 
@@ -68,56 +71,28 @@ export default class extends Component{
 
     return(
       <Layout title={channel.title}>
-        <div className="banner" style={{backgroundImage: `url(${channel.urls.banner_image.original})`}}>
-        </div>
+        { channel.urls.banner_image.original &&
+          <div 
+            className={styles.banner}
+            style={{backgroundImage: `url(${channel.urls.banner_image.original})`}}>
+          </div>
+        }
 
         { openPodcast && 
-          <div className="modal">
+          <div className={styles.modal}>
             <PodcastPlayer clip={openPodcast} onClose={this.onCloseModal} />
           </div>
         }
         
-        <h1>{ channel.title }</h1>
-        
-        <h2>Series</h2>
-        <ChannelGrid channels={series}/>
+        <div className={globalStyles.content}>
+          <h1>{ channel.title }</h1>
+          
+          <h2>Series</h2>
+          <ChannelGrid channels={series}/>
 
-        <h2>Ultimos Podcasts</h2>
-        <PodcastList openPodcast={this.openPodcast} clips={audioClips} />
-
-        <style jsx>{`
-          header {
-            color: #fff;
-            background: #8756ca;
-            padding: 15px;
-            text-align: center;
-          }
-          .banner {
-            width: 100%;
-            padding-bottom: 25%;
-            background-position: 50% 50%;
-            background-size: cover;
-            background-color: #aaa;
-          }
-          h1 {
-            font-weight: 600;
-            padding: 15px;
-          }
-          h2 {
-            padding: 15px;
-            font-size: 1.2em;
-            font-weight: 600;
-            margin: 0;
-          }
-          .modal{
-            position: fixed;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            z-index: 999999;
-          }
-        `}</style>
+          <h2>Ultimos Podcasts</h2>
+          <PodcastList openPodcast={this.openPodcast} clips={audioClips} />
+        </div>
       </Layout>
     )
   }

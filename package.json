@@ -13,10 +13,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@zeit/next-css": "^1.0.1",
+    "@zeit/next-sass": "^1.0.1",
     "cross-env": "^7.0.2",
     "isomorphic-fetch": "^2.2.1",
     "next": "^9.3.0",
     "next-routes": "^1.4.2",
+    "node-sass": "^4.13.1",
     "nprogress": "^0.2.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",

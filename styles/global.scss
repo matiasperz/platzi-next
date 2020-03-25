@@ -1,0 +1,33 @@
+@import "./_fonts";
+@import "./_variables";
+@import "./_keyframes";
+@import "./_nprogress";
+
+:root{
+    --primaryColor: #{$primaryColor};
+    --background: #{$background};
+}
+
+* {
+    font-family: Open Sans, -apple-system, Helvetica Neue, Helvetica, Roboto,
+        Arial, sans-serif;
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+
+    background-color: var(--background);
+}
+
+* {
+    outline: none;
+}
+
+.content {
+    width: 100%;
+    max-width: 1420px;
+    margin: 0 auto;
+}
+
