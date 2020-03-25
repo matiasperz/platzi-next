@@ -13,3 +13,6 @@ npm run dev
 ```
 npm run build ; npm run start
 ```
+
+### Preview
+![preview](./preview.png)
